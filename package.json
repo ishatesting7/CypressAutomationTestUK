@@ -1,0 +1,27 @@
+{
+  "name": "cypressdecember2024",
+  "version": "1.0.0",
+  "description": "Basic of Cypress and Javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sanityTest": "npx cypress run --spec cypress/e2e/CypressUIAutomation/AlertTest.cy.js",
+    "test:addToCart": "npx cypress run --spec cypress/e2e/CypressUIAutomation/DropdownDemoTest.cy.js",
+    "test:registerFlow": "npx cypress run --spec cypress/e2e/CypressUIAutomation/FixtureTest.cy.js",
+    "test2": "asd"
+  },
+  "keywords": [
+    "cypress",
+    "visit",
+    "request"
+  ],
+  "author": "VB",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^13.17.0",
+    "cypress-xpath": "^2.0.1"
+  },
+  "dependencies": {
+    "cypress-file-upload": "^5.0.8"
+  }
+}
