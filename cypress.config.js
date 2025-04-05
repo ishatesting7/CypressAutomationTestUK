@@ -6,7 +6,7 @@ module.exports = defineConfig({
   // pageLoadTimeout:4000,
   // video:true,
   // screenshotOnRunFailure:true
-
+  video:true,
   e2e: {
     baseUrl:"https://ecommerce-playground.lambdatest.io",
     setupNodeEvents(on, config) {

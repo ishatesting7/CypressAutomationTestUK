@@ -46,7 +46,7 @@ describe('Handle Dropdown', ()=>{
       
     })
 
-    it.only('Automation Blogspot Dropdown 2', ()=>{
+    it('Automation Blogspot Dropdown 2', ()=>{
 
 
         cy.visit('https://testautomationpractice.blogspot.com/');
@@ -55,4 +55,33 @@ describe('Handle Dropdown', ()=>{
 
         
     })
+
+    it.only('Autosuggestive Dropdown', ()=>{
+
+
+        cy.visit("https://www.google.com/");
+
+        cy.get(".gLFyf").type('Cypress Automation');
+
+        cy.wait(3000)
+
+        cy.get('[class="sbct PZPZlf"]').should('have.length',12)
+
+        cy.log('Hello')
+
+        cy.get('div.wM6W7d > span').each(($e1, index, $list)=>{
+
+            cy.log($e1.text());
+            if($e1.text()=="cypress automation")
+            {
+                cy.wrap($e1).click();
+                
+            }
+        })
+
+
+        cy.log('Hello 3')
+    })
+
+    
 })
