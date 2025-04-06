@@ -22,6 +22,7 @@ require('cypress-xpath');
 
 import 'cypress-file-upload';
 
+import '@4tw/cypress-drag-drop'
 
 const app = window.top;
 if (!app.document.head.querySelector("[data-hide-command-log-request]")) {
