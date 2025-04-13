@@ -30,3 +30,13 @@
 
 // })
 
+const XLSX = require('xlsx');
+
+Cypress.Commands.add('readExcelFile', (filePath) => {
+  return cy.task('readExcelFile', filePath);
+});
+
+Cypress.Commands.add('writeToExcel', (data, filePath) => {
+    return cy.task('writeToExcel', { data, filePath });
+  });
+
