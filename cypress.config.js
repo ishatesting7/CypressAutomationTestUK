@@ -13,7 +13,8 @@ module.exports = defineConfig({
   // screenshotOnRunFailure:true
   video:true,
   e2e: {
-    baseUrl:"https://ecommerce-playground.lambdatest.io",
+    baseUrl:'https://restful-booker.herokuapp.com',
+    baseUrl1:"https://ecommerce-playground.lambdatest.io",
     setupNodeEvents(on, config) {
       // implement node event listeners here
       on('task', {

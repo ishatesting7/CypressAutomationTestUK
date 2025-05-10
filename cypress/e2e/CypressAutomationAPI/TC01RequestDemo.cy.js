@@ -38,7 +38,7 @@ describe('Pet Store API',()=>{
         cy.request({
             method:"POST",
             url:`${baseURL}/pet`,
-            body:bodyPost
+            body:bodyPost,
             
 
         }).then((response)=>{
