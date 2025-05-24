@@ -1,0 +1,79 @@
+pipeline {
+  agent any
+
+  environment {
+    CYPRESS_CACHE_FOLDER = "${WORKSPACE}/.cache/Cypress"
+  }
+
+  options {
+    timestamps()
+  }
+
+  stages {
+    stage('Checkout Code') {
+      steps {
+        checkout scm
+      }
+    }
+
+    stage('Setup Node.js') {
+      steps {
+        sh 'node -v || nvm install 18'
+      }
+    }
+
+    stage('Install Dependencies') {
+      steps {
+        sh 'npm ci'
+      }
+    }
+
+    stage('Verify Cypress Installation') {
+      steps {
+        sh 'npx cypress verify'
+      }
+    }
+
+    stage('Run Cypress Tests') {
+      steps {
+        sh 'npx cypress run --spec "cypress/e2e/**/*.cy.js"'
+      }
+    }
+
+    stage('Generate HTML Report') {
+      when {
+        expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
+      }
+      steps {
+        sh '''
+          npx mochawesome-merge cypress/reports/html/*.json > cypress/reports/html/mochawesome.json
+          npx marge cypress/reports/html/mochawesome.json --reportDir cypress/reports/html --reportFilename index.html
+        '''
+      }
+    }
+  }
+
+  post {
+    always {
+      archiveArtifacts artifacts: 'cypress/videos/**/*', allowEmptyArchive: true
+    }
+
+    failure {
+      archiveArtifacts artifacts: 'cypress/screenshots/**/*', allowEmptyArchive: true
+    }
+
+    success {
+      archiveArtifacts artifacts: 'cypress/reports/html/index.html', allowEmptyArchive: true
+
+      // Publish HTML report to Jenkins UI
+      publishHTML(target: [
+        allowMissing: false,
+        alwaysLinkToLastBuild: true,
+        keepAll: true,
+        reportDir: 'cypress/reports/html',
+        reportFiles: 'index.html',
+        reportName: 'Cypress HTML Test Report'
+      ])
+    }
+  }
+}
